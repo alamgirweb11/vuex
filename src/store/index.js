@@ -1,9 +1,10 @@
-import { createStore } from 'vuex'
+import { createStore, storeKey } from 'vuex'
 
 export default createStore({
     state: {
         msg: 'Hello World!',
         count: 0,
+        greetings: 'Hello! Jhon.',
         students: [
             { id: 1, name: 'Abir Ahmed', age: 17, status: true },
             { id: 2, name: 'Rajon Mia', age: 18, status: true },
@@ -30,4 +31,9 @@ export default createStore({
             return state.students.find(student => student.id === studentId)
         }
     },
+    mutations: {
+        changeGreetings(state) {
+            state.greetings = state.greetings + ' Good Evening!'
+        }
+    }
 })

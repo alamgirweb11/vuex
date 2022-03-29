@@ -45,12 +45,16 @@
                 Age: {{ firstBoyInfo.age }}
             </pre>
        </h5>
+       <h3 class="subject-heading">Mutations</h3>
+       <div>
+         <h4>{{ greetings }}</h4>
+          <button @click="changeGreetings()" class="default-btn">Update Greetings</button>
+       </div>
   </div>
 </template>
 
 <script>
-import { mapState } from "vuex";
-import { mapGetters } from "vuex";
+import {mapGetters, mapMutations, mapState } from "vuex";
 
 export default {
   name: "App",
@@ -69,6 +73,10 @@ export default {
       updateValue (state) {
       return state.count + this.defaultCount;
     },
+    greetings(state){
+       return this.$store.state.greetings
+    },
+    // getters
     students(){
          return this.$store.getters.all_students
     },
@@ -77,7 +85,12 @@ export default {
     ]),
     firstBoyInfo(){
          return this.$store.getters.getIdWiseStudentInfo(1)
-    }
+    },
+
+    // mutations
+    ...mapMutations([
+        
+    ])
   },
   methods: {
     increment(){
@@ -85,6 +98,11 @@ export default {
        },
     decrement(){
           return this.$store.state.count -= this.decrease
+    },
+
+    // mutations
+    changeGreetings(){
+         this.$store.commit('changeGreetings')
     }
    
   },
@@ -109,6 +127,16 @@ export default {
 }
 .text-danger {
   color: #f05902f5;
+}
+.default-btn{
+  background-color: #484948f5;
+  color: #eeeeee;
+  padding: 5px 10px;
+  border: none;
+  outline: none;
+  font-size: .8rem;
+  cursor: pointer;
+  margin: 0 10px;
 }
 .increment-btn {
   background-color: #15ec6ff5;

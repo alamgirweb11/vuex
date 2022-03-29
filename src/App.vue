@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <h3 class="subject-heading">State</h3>
     <h3 class="msg">{{ msg }}</h3>
     <br />
     <h2
@@ -13,11 +14,43 @@
     </h2>
     <button class="increment-btn" @click="increment">+</button>
     <button class="decrement-btn" @click="decrement">-</button>
+
+     <h3 class="subject-heading">Getters</h3>
+     <table width="50%" cellspacing="0" border="1" cellpadding="4">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(student, id) in students" :key="id">
+            <td>{{ student.name }}</td>
+            <td>{{ student.age }}</td>
+            <td v-if="student.status === true">Active</td>
+            <td v-else>Inactive</td>
+          </tr>
+          <tr>
+            <td>Total Students: {{ total_students }}</td>
+            <td>Active Students: {{ active_students }}</td>
+            <td>Inactive Students: {{ inactive_students }}</td>
+          </tr>
+        </tbody>
+     </table>
+     <h5>First Boy Info:
+              <pre>
+                ID: {{ firstBoyInfo.id }}
+                Name: {{ firstBoyInfo.name }}
+                Age: {{ firstBoyInfo.age }}
+            </pre>
+       </h5>
   </div>
 </template>
 
 <script>
 import { mapState } from "vuex";
+import { mapGetters } from "vuex";
 
 export default {
   name: "App",
@@ -28,20 +61,22 @@ export default {
       decrease: 2,
     };
   },
-  //   computed: mapState({
-  //              count: state => state.count,
-  //              countAlias: 'count',
-  //           }),
+
   computed: {
-   //  ...mapState({
-   //    msg: "msg",
-   //    count: "count",
-   //  }),
     ...mapState([
        "msg", "count"
      ]),
       updateValue (state) {
       return state.count + this.defaultCount;
+    },
+    students(){
+         return this.$store.getters.all_students
+    },
+    ...mapGetters([
+        'total_students', 'active_students', 'inactive_students'
+    ]),
+    firstBoyInfo(){
+         return this.$store.getters.getIdWiseStudentInfo(1)
     }
   },
   methods: {
@@ -59,6 +94,9 @@ export default {
 .container {
   width: 80%;
   margin: 0 auto;
+}
+.subject-heading{
+     border-bottom: 1px solid #000;
 }
 .msg {
   text-align: left;

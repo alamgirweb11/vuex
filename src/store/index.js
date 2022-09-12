@@ -35,5 +35,10 @@ export default createStore({
         changeGreetings(state) {
             state.greetings = state.greetings + ' Good Evening!'
         }
-    }
+    },
+    actions:{
+          increments(commit){
+             
+          }
+    },
 })

@@ -34,11 +34,14 @@ export default createStore({
     mutations: {
         changeGreetings(state) {
             state.greetings = state.greetings + ' Good Evening!'
+        },
+        REMOVE_STUDENT_RECORD(state, studentId){
+              state.students.splice(studentId, 1)
         }
     },
     actions:{
-          increments(commit){
-             
+        removeStudentRecord({commit}, studentId){
+               commit('REMOVE_STUDENT_RECORD', studentId)
           }
     },
 })

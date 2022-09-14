@@ -22,6 +22,7 @@
             <th>Name</th>
             <th>Age</th>
             <th>Status</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
@@ -30,6 +31,7 @@
             <td>{{ student.age }}</td>
             <td v-if="student.status === true">Active</td>
             <td v-else>Inactive</td>
+            <td><button @click="removeStudent(id)">Delete</button></td>
           </tr>
           <tr>
             <td>Total Students: {{ total_students }}</td>
@@ -103,6 +105,11 @@ export default {
     // mutations
     changeGreetings(){
          this.$store.commit('changeGreetings')
+    },
+
+    // actions
+    removeStudent(studentId){
+         this.$store.dispatch('removeStudentRecord', studentId)
     }
    
   },
